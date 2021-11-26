@@ -6,9 +6,22 @@ public class Student {
 
     private String ime;
     private String prezime;
+    private PlanStudija planStudija;
     private List<Predmet> predmeti;
+    private int brojIndeksa;
 
 
+
+
+    public Student(String ime, String prezime,PlanStudija planStudija ,List<Predmet> predmeti, int brojIndeksa) {
+        testirajBrojECTSPoena(predmeti);
+        this.ime = ime;
+        this.prezime = prezime;
+        this.planStudija=planStudija;
+        this.predmeti = predmeti;
+        predmeti.forEach((Predmet p) -> p.upisiStudenta(this));
+        this.brojIndeksa = brojIndeksa;
+    }
 
     public void testirajBrojECTSPoena(List<Predmet> predmeti) {
         int suma=0;
@@ -16,16 +29,6 @@ public class Student {
             suma += predmet.getBodovi();
 
         if(suma<30) throw new IllegalArgumentException("Broj ECTS poena je manji od 30!");
-    }
-
-
-    public Student(String ime, String prezime, List<Predmet> predmeti) {
-        testirajBrojECTSPoena(predmeti);
-
-        this.ime = ime;
-        this.prezime = prezime;
-        this.predmeti = predmeti;
-        predmeti.forEach((Predmet p) -> {p.upisiStudenta(this);});
     }
 
     public String getIme() {
@@ -52,6 +55,22 @@ public class Student {
         this.predmeti = predmeti;
     }
 
+    public PlanStudija getPlanStudija() {
+        return planStudija;
+    }
+
+    public void setPlanStudija(PlanStudija planStudija) {
+        this.planStudija = planStudija;
+    }
+
+    public int getBrojIndeksa() {
+        return brojIndeksa;
+    }
+
+    public void setBrojIndeksa(int brojIndeksa) {
+        this.brojIndeksa = brojIndeksa;
+    }
+
     public void dodajPredmet(Predmet predmet) {
 
         predmet.upisiStudenta(this);
@@ -67,4 +86,6 @@ public class Student {
         predmeti=pomocni;
 
     }
+
+
 }
